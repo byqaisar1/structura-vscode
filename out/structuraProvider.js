@@ -11,6 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StructuraItem = exports.StructuraProvider = void 0;
 const vscode = require("vscode");
+const codeMover_1 = require("./codeMover");
+const workspaceProvider_1 = require("./workspaceProvider");
 class StructuraProvider {
     constructor() {
         // Event Emitter for refreshing the view
@@ -19,6 +21,9 @@ class StructuraProvider {
         // Drag MIME type
         this.dragMimeTypes = ['application/vnd.code.tree.structuraItem'];
         this.dropMimeTypes = ['application/vnd.code.tree.structuraItem'];
+        this.selectedItems = new Set();
+        this.codeMover = new codeMover_1.CodeMover();
+        this.workspaceProvider = new workspaceProvider_1.WorkspaceProvider();
     }
     refresh() {
         this._onDidChangeTreeData.fire();
@@ -77,6 +82,9 @@ class StructuraProvider {
             }
             try {
                 const document = editor.document;
+                // Check if this is a cross-file operation
+                // For now, we only support same-file operations
+                // Cross-file will be enabled when user drags to a different file's tree item
                 let sourceText = document.getText(sourceRange).trim();
                 const targetLine = document.lineAt(targetRange.start.line);
                 const needsSpacing = targetLine.text.trim().length > 0;
@@ -85,8 +93,6 @@ class StructuraProvider {
                 const targetStart = targetRange.start;
                 const sourceIsBeforeTarget = sourceStart.isBefore(targetStart);
                 // Use edit builder for sequential operations
-                // Note: The User requested logic assumes edits are sequential or manually adjusted. 
-                // The code below manually adjusts coordinates passed to the builder.
                 yield editor.edit(editBuilder => {
                     if (sourceIsBeforeTarget) {
                         // Moving DOWN: Delete first, then insert
@@ -113,6 +119,65 @@ class StructuraProvider {
                 console.error('Structura error:', error);
             }
         });
+    }
+    /**
+     * Move symbol to a different file
+     */
+    moveToFile(sourceItem, targetFilePath) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const sourceEditor = vscode.window.activeTextEditor;
+            if (!sourceEditor) {
+                vscode.window.showErrorMessage('No active editor');
+                return;
+            }
+            try {
+                // Open target file
+                const targetUri = vscode.Uri.file(targetFilePath);
+                const targetDocument = yield vscode.workspace.openTextDocument(targetUri);
+                // Use CodeMover for cross-file operation
+                const success = yield this.codeMover.moveSymbol(sourceEditor.document, targetDocument, sourceItem.symbol, new vscode.Position(targetDocument.lineCount, 0) // Insert at end
+                );
+                if (success) {
+                    vscode.window.showInformationMessage(`✅ Moved ${sourceItem.symbol.name} to ${targetFilePath}`);
+                    this.refresh();
+                }
+            }
+            catch (error) {
+                vscode.window.showErrorMessage(`❌ Failed to move to file: ${error}`);
+                console.error('Cross-file move error:', error);
+            }
+        });
+    }
+    /**
+     * Toggle multi-select for an item
+     */
+    toggleSelection(item) {
+        if (this.selectedItems.has(item)) {
+            this.selectedItems.delete(item);
+        }
+        else {
+            this.selectedItems.add(item);
+        }
+        this.refresh();
+    }
+    /**
+     * Get currently selected items
+     */
+    getSelectedItems() {
+        return Array.from(this.selectedItems);
+    }
+    /**
+     * Clear selection
+     */
+    clearSelection() {
+        this.selectedItems.clear();
+        this.refresh();
+    }
+    /**
+     * Dispose resources
+     */
+    dispose() {
+        this.workspaceProvider.dispose();
     }
 }
 exports.StructuraProvider = StructuraProvider;

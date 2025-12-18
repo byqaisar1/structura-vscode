@@ -2,29 +2,35 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deactivate = exports.activate = void 0;
 const vscode = require("vscode");
-const structuraProvider_1 = require("./structuraProvider");
+const multiFileProvider_1 = require("./multiFileProvider");
 function activate(context) {
-    const structuraProvider = new structuraProvider_1.StructuraProvider();
-    // Create the Tree View
+    const multiFileProvider = new multiFileProvider_1.MultiFileProvider();
+    // Create the Tree View with multi-file support
     const treeView = vscode.window.createTreeView('structuraView', {
-        treeDataProvider: structuraProvider,
-        dragAndDropController: structuraProvider,
-        canSelectMany: false
+        treeDataProvider: multiFileProvider,
+        dragAndDropController: multiFileProvider,
+        canSelectMany: false,
+        showCollapseAll: true
     });
     context.subscriptions.push(treeView);
-    // Refresh on editor change (Active Editor Changed)
+    // Refresh on editor change
     const editorChange = vscode.window.onDidChangeActiveTextEditor(() => {
-        structuraProvider.refresh();
+        multiFileProvider.refresh();
     });
-    // Also refresh on Save (Document Changed/Saved) to keep tree in sync
+    // Refresh on document save
     const docSave = vscode.workspace.onDidSaveTextDocument(() => {
-        structuraProvider.refresh();
+        multiFileProvider.refresh();
     });
     context.subscriptions.push(editorChange);
     context.subscriptions.push(docSave);
+    // Register refresh command
+    context.subscriptions.push(vscode.commands.registerCommand('structura.refresh', () => {
+        multiFileProvider.refresh();
+        vscode.window.showInformationMessage('Structura refreshed');
+    }));
     // Initial refresh
-    structuraProvider.refresh();
-    console.log('Structura extension activated successfully!');
+    multiFileProvider.refresh();
+    console.log('Structura extension activated with multi-file drag-drop support!');
 }
 exports.activate = activate;
 function deactivate() { }

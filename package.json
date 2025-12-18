@@ -2,12 +2,8 @@
   "name": "structura-code-reorder",
   "displayName": "Structura - Drag & Drop Code Refactor",
   "description": "Reorder functions and classes by dragging them in the sidebar",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "publisher": "structura-dev",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/yourname/structura"
-  },
   "engines": {
     "vscode": "^1.74.0"
   },
@@ -39,6 +35,90 @@
         {
           "id": "structuraView",
           "name": "Structure"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "structura.moveUp",
+        "title": "Structura: Move Function Up",
+        "icon": "$(arrow-up)"
+      },
+      {
+        "command": "structura.moveDown",
+        "title": "Structura: Move Function Down",
+        "icon": "$(arrow-down)"
+      },
+      {
+        "command": "structura.moveToTop",
+        "title": "Structura: Move to Top",
+        "icon": "$(arrow-small-up)"
+      },
+      {
+        "command": "structura.moveToBottom",
+        "title": "Structura: Move to Bottom",
+        "icon": "$(arrow-small-down)"
+      },
+      {
+        "command": "structura.moveToFile",
+        "title": "Structura: Move to Another File",
+        "icon": "$(file-symlink-file)"
+      },
+      {
+        "command": "structura.refresh",
+        "title": "Structura: Refresh",
+        "icon": "$(refresh)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "structura.moveUp",
+        "key": "ctrl+shift+up",
+        "mac": "cmd+shift+up",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "structura.moveDown",
+        "key": "ctrl+shift+down",
+        "mac": "cmd+shift+down",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "structura.moveToTop",
+        "key": "ctrl+shift+t",
+        "mac": "cmd+shift+t",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "structura.moveToBottom",
+        "key": "ctrl+shift+b",
+        "mac": "cmd+shift+b",
+        "when": "editorTextFocus"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "structura.refresh",
+          "when": "view == structuraView",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "structura.moveUp",
+          "when": "view == structuraView",
+          "group": "inline@1"
+        },
+        {
+          "command": "structura.moveDown",
+          "when": "view == structuraView",
+          "group": "inline@2"
+        },
+        {
+          "command": "structura.moveToFile",
+          "when": "view == structuraView",
+          "group": "navigation"
         }
       ]
     }

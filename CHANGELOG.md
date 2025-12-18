@@ -1,6 +1,6 @@
 # Change Log
 
-## [0.0.1] - 2024-12-17
+## [0.0.1] - 2025-12-18
 
 ### Added
 
@@ -9,3 +9,4 @@
 - Sidebar Tree View with icons
 - Robust position calculation for moving code Up/Down
 - Smart whitespace handling
+

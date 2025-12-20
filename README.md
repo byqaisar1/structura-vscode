@@ -335,7 +335,6 @@ If Structura saved you time:
 ⭐ **Star** the [GitHub repository](https://github.com/qaisarrafique107-cell/structura-vscode/)  
 📢 **Share** with fellow developers  
 💬 **Leave a review** on VS Code Marketplace  
-☕ **Buy me a coffee** (coming soon!)
 
 ---
 
@@ -354,3 +353,4 @@ If Structura saved you time:
 [Report Bug](https://github.com/qaisarrafique107-cell/structura-vscode/issues) · [Request Feature](hhttps://github.com/qaisarrafique107-cell/structura-vscode/issues) · [View Changelog](https://github.com/qaisarrafique107-cell/structura-vscode/blob/main/CHANGELOG.md)
 
 </div>
+

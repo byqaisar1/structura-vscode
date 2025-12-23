@@ -4,7 +4,7 @@ All notable changes to the "Structura" extension will be documented in this file
 
 ---
 
-## [1.1.0] - 2025-12-24
+## [2.0.0] - 2025-12-24
 
 ### 🚀 Update: Context Menu & Multi-Select
 

@@ -17,7 +17,7 @@ Drag and drop functions across files. Automatic imports. Multi-file refactoring 
 
 ---
 
-## 🚀 What's New in v1.1.0
+## 🚀 What's New in v2.0.0
 
 ### 🎯 New Features
 
@@ -303,14 +303,14 @@ Structura works with any language that has a Symbol Provider in VS Code:
 
 ## 🔮 Roadmap
 
-### v1.1 (Planned)
+### v2.0.0 (Planned)
 
 - [ ] Full multi-select support (drag multiple functions at once)
 - [ ] AI-powered code organization suggestions
 - [ ] Context menu options ("Move to...", "Extract to new file")
 - [ ] Performance optimizations for large projects
 
-### v1.2 (Future)
+### v3.0.0 (Future)
 
 - [ ] Keyboard shortcuts (`Ctrl+Shift+Up/Down`)
 - [ ] Undo history improvements
@@ -375,6 +375,7 @@ If Structura saved you time:
 ⭐ **Star** the [GitHub repository](https://github.com/byqaisar1/structura-vscode/)  
 📢 **Share** with fellow developers  
 💬 **Leave a review** on VS Code Marketplace  
+
 
 ---
 

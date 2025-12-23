@@ -2,7 +2,7 @@
   "name": "structura-code-reorder",
   "displayName": "Structura - Drag & Drop Code Refactor",
   "description": "Reorder functions and classes by dragging them in the sidebar",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "publisher": "ByQaisar",
   "engines": {
     "vscode": "^1.74.0"

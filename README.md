@@ -388,7 +388,7 @@ If Structura saved you time:
 
 **Made with ❤️ for developers who love clean, organized code**
 
-**Version 1.0.0** - The Cross-File Refactoring Release
+
 
 [Report Bug](https://github.com/byqaisar1/structura-vscode/issues) · [Request Feature](https://github.com/byqaisar1/structura-vscode/issues) · [View Changelog](https://github.com/byqaisar1/structura-vscode/blob/main/CHANGELOG.md)
 
